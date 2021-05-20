@@ -1,7 +1,7 @@
 import React from 'react';
 
 
-import MenuItem from '../menu-item/menu-item.component'
+import MenuItem from '../menu-item/menu-item.component';
 
 //hay que asegurarse de poner el directory styles
 import './directory.styles.scss'
@@ -54,20 +54,18 @@ class Directory extends React.Component{
     }
     //dentro de render tenemos que renderizar lo de homepage
     render(){
-    //hacemos un map a traves de las secciones 'sections'
-    //Map es una funcion que toma una entrada y la mape con otra cosa.. y usamos una funcion flecha que le va a pasar los titulos 
-    //a cada menuitem   
-    // se puede desestructurar directamente dentro del map
-    
-        <div className='directory-menu'> 
-            
-            {this.state.sections.map(({title, imageUrl, id}) =>(
-                <MenuItem key={id} title={title} />  
-            ))}
-        </div>
-
+      //hacemos un map a traves de las secciones 'sections'
+      //Map es una funcion que toma una entrada y la mape con otra cosa.. y usamos una funcion flecha que le va a pasar los titulos 
+      //a cada menuitem   
+      // se puede desestructurar directamente dentro del map
+      return( 
+        <div className='directory-menu'>              
+          {this.state.sections.map(({title, imageUrl, id}) =>(
+            <MenuItem key={id} title={title} />  
+          ))}
+          </div>
+      );
     }
-    
 }
 
 export default Directory

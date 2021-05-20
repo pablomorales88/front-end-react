@@ -1,6 +1,6 @@
 import React from 'react';
 
-import './menu-item.styless.scss'
+import './menu-item.styles.scss';
 //we could use props like a 'const MenuItem = (props) => ( y cuando quiera usar el titulo llamo a props.title)
 //pero solo desestructurarmeos title y pasaremos title directarmente, esto asumo que se hace de esta forma 
 //ya que este componente no tiene estados y es mas facil respolverlo y pasarle directamente el titulo y no Props. 
