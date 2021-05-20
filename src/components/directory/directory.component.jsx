@@ -58,10 +58,13 @@ class Directory extends React.Component{
       //Map es una funcion que toma una entrada y la mape con otra cosa.. y usamos una funcion flecha que le va a pasar los titulos 
       //a cada menuitem   
       // se puede desestructurar directamente dentro del map
+
+      //los tres puntos en ...otherSectionProps es una forma de guardar todas las variables que estan en sections en una sola y despues pasarselas
+      //todas juntas a menuItem
       return( 
         <div className='directory-menu'>              
-          {this.state.sections.map(({title, imageUrl, id, size}) =>(
-            <MenuItem key={id} title={title} imageUrl={imageUrl} size={size}/>  
+          {this.state.sections.map(({id, ...otherSectionProps}) =>(
+            <MenuItem key={id} {...otherSectionProps}/>  
           ))}
           </div>
       );

@@ -1,11 +1,21 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { BrowserRouter} from 'react-router-dom'
 import './index.css';
 import App from './App';
 //import * as serviceWorkerRegistration from './serviceWorkerRegistration';
 //import reportWebVitals from './reportWebVitals';
 
-ReactDOM.render(<App />, document.getElementById('root'));
+
+//BrowserRouter es un componente que trabaja como un 
+//wrapper rodeando a nuestra aplicacion  y lo que nos hace
+// es que nos da todas las funcionalidades del routing app en nuestra applicacion 
+ReactDOM.render(
+    <BrowserRouter>
+        <App />
+    </BrowserRouter>,
+     
+    document.getElementById('root'));
 
 //ReactDOM.render(
 //<React.StrictMode>
