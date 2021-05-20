@@ -8,11 +8,25 @@
     justify-content: center;
     border: 1px solid black;
     margin: 0 7.5px 15px;
-    background-position: center;
-    background-size: cover;
+    //Utilizo overflow para ocultar que al hacerse mas grande la imagen, sale fuera del content (overflow)
+    //de esta forma, la imagen crece pero dentro del content menu-item
+    overflow: hidden;
+    //cuando pongo el cursor arriba del content (imagen), la imagen se va a escalar
+    // y el content se va a poner mas opaca y el cursor se volvera un puntero (manito)
+    &:hover{
+        cursor: pointer;
+
+        & .background-image {
+            transform: scale(1.1);
+            transition: transform 6s cubic-bezier(0.25,0.45,0.45,0.95);
+        }
+        & .content{
+            opacity: 0.9;
+        }
+    }
 
     &.large {
-        height: 420px;
+        height: 600px;
     }
     &:first-child {
         margin-right: 7.5px;
@@ -21,7 +35,13 @@
     &:last-child {
         margin-left: 7.5px;
     }
-
+    //background-image es el nombre de la clase que llamamos en el div en menu-item
+    .background-image{
+        width: 100%;
+        height: 100%;
+        background-position: center;
+        background-size: cover;
+    }
     .content{
         height: 90px;
         padding: 0 25px;
@@ -30,7 +50,9 @@
         align-items: center;
         justify-content: center;
         border: 1px solid black;
-
+        background-color: white;
+        opacity: 0.7;
+        position: absolute;
         .title{
             font-weight: bold;
             margin-bottom: 6px;
