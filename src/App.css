@@ -1,3 +1,9 @@
+/*
+padding me da la distancia entre el contenido que esta dentro del body y ambos laterales, 
+tanto a los costados, como arriba y abajo. Padding usa 2 parametros, para los costados es uno 
+y arriba y abajo es el otro. example padding:20px 80px;
+*/
 body{
     font-family: 'Open Sans Condensed';
+    padding: 20px 60px;
 }
