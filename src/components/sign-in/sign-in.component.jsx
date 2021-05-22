@@ -1,7 +1,14 @@
 import React from 'react';
 
-import './sign-in.styles.scss';
+import FormInput from '../form-input/form-input.component';
 
+import './sign-in.styles.scss';
+//este class component tiene un default event driver para no permitir
+//que el submit del form no actualice la web
+//y a su vez tiene dos handles, en el submit tenemos el event.preventDefault y 
+//defaulteamos los valores de email y password.
+//en el handleChange que se activa con el onChange se desestructuran los valores
+//del event.target y se van poniend en el state. 
 class SignIn extends React.Component{
     constructor(props){
         super(props);
@@ -27,21 +34,21 @@ class SignIn extends React.Component{
                 <h2>I have already an account</h2>
                 <span>Sign in with your email and password</span>
                 <form onSubmit={this.handleSubmit}>
-                    <input 
+                    <FormInput 
                         name='email' 
                         type='email' 
                         value={this.state.email}
-                        onChange={this.handleChange} 
+                        handleChange={this.handleChange} 
+                        label="email"
                         required
                     />
-                    <label>Email</label>
-                    <input 
+                    <FormInput 
                         name='password' 
                         type='password' 
                         value={this.state.password} 
-                        onChange={this.handleChange}
+                        handleChange={this.handleChange}
+                        label="password"
                         required />
-                    <label>Password</label>
 
                     <input type='submit' value='SubmitForm'/>
                 </form>
