@@ -12,3 +12,10 @@ a{
     text-decoration: none;
     color: black;
 }
+
+
+/* for universal selector */
+
+* {
+    box-sizing: border-box;
+}
