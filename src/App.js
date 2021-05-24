@@ -1,6 +1,6 @@
 import React from 'react';
 import {Switch, Route} from 'react-router-dom';
-
+import {connect } from 'react-redux';
 import './App.css';
 
 import HomePage from './pages/homepage/homepage.component';
@@ -9,6 +9,9 @@ import SignInAndSignUpPage from './pages/sign-in-and-sign-up/sign-in-and-sign-up
 import Header from './components/header/header.component';
 
 import {auth, createUserProfileDocument} from './firebase/firebase.utils';
+
+import {setCurrentUser} from './redux/user/user.actions';
+
 //import { render } from '@testing-library/react';
 //import { canConstructResponseFromBodyStream } from 'workbox-core/_private';
 
@@ -17,18 +20,23 @@ import {auth, createUserProfileDocument} from './firebase/firebase.utils';
 //vamos a cambiar el 'function App()' por una clase
 class App extends React.Component {
   
+  /*
+  //como uso redux, ya no necesito mas el contructor, porque el estado del current state
+  //me lo mantiene redux
   constructor(){
     super();
     this.state = {
       currentUser : null 
     }
   }
+  */
 
   unsuscribeFromAuth = null;
   //montamos el componente de firebase, y siempre que pase algo en firebase, 
   //se nos avisara... Como esto esta siempre abierto, si el usuario se desauthentica
   //hay que desmontarlo (eso tengo entendido)
   componentDidMount(){
+    const {setCurrentUser} = this.props;
     this.unsuscribeFromAuth = auth.onAuthStateChanged(async userAuth => {
       //si estamos authenticado vamos a crear un userProfileDocument, 
       if(userAuth){
@@ -39,12 +47,16 @@ class App extends React.Component {
         //un snapshot tiene la data en el method data
         //si solo imprimimos el snapshot nos muestra si existe nomas y el Id
         userRef.onSnapshot(snapShot => {
-          this.setState({
-              currentUser:{
+          //vamos a reemplazar el setState code con nuestro SetCurren user action code agregando "props"
+          //y ahora si desestructuramos y hacemos setCurrentUser= this.props como en la linea 39, podemos 
+          //quitar el this props y poner directamente setCurrentUser
+          setCurrentUser({
                 id: snapShot.id,
                 ...snapShot.data()
               }
-            }/*
+            //} este corchete lo comento porque iba cuando no usaba redux, 
+            //ya que usaba this.setcurrentUser directamente sin el .props
+            /*
               esto era para imprimir el retorno de la funcion que es asincrono
               ,() => {
               console.log(this.state);
@@ -55,7 +67,7 @@ class App extends React.Component {
 
         });
       }
-      this.setState({currentUser: userAuth});
+      setCurrentUser(userAuth);
       //this.setState({currentUser: user});
       //createUserProfileDocument(user);
       //console.log(user);
@@ -69,7 +81,7 @@ class App extends React.Component {
   render(){
     return (
       <div>
-        <Header currentUser={this.state.currentUser}/>
+        <Header/>
         <Switch>
           <Route exact path='/' component={HomePage} />
           <Route path='/shop' component={ShopPage} />
@@ -81,4 +93,10 @@ class App extends React.Component {
   }
 }
 
-export default App;
+const mapDispatchToProps = dispatch => ({
+  //inside de nuestro map dispach 
+  //cuando usamos esto ya no vamos a necesitar el constructor
+  setCurrentUser: user => dispatch(setCurrentUser(user))
+})
+//como no necesitamos ningun props , ponemos null como primer argumento, porque no necesitamos mantener ningun state de props
+export default connect(null, mapDispatchToProps)(App);

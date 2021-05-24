@@ -1,21 +1,28 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter} from 'react-router-dom'
-
+import { Provider } from 'react-redux'
 
 import './index.css';
 import App from './App';
 //import * as serviceWorkerRegistration from './serviceWorkerRegistration';
 //import reportWebVitals from './reportWebVitals';
 
+//store vendrian a ser todo el conjunto de variable, el json
+//que le vamos a pasar a provider.... para que toda la app pueda 
+//leer y cambiar el estado de las cosas
+import store from './redux/store';
 
 //BrowserRouter es un componente que trabaja como un 
 //wrapper rodeando a nuestra aplicacion  y lo que nos hace
 // es que nos da todas las funcionalidades del routing app en nuestra applicacion 
+//es la forma de darle acceso a redux a nuestra applicacion
 ReactDOM.render(
-    <BrowserRouter>
-        <App />
-    </BrowserRouter>,
+    <Provider store={store}>
+        <BrowserRouter>
+            <App />
+        </BrowserRouter>
+    </Provider>,
      
     document.getElementById('root')
     );
