@@ -50,7 +50,8 @@ class App extends React.Component {
               console.log(this.state);
             }*/
           );
-          console.log(this.state);
+          //con este console log veo cuando esta autorizado el sign-in
+          //console.log(this.state);
 
         });
       }
