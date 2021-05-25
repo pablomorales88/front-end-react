@@ -1,5 +1,5 @@
 import React from 'react';
-import {Switch, Route} from 'react-router-dom';
+import {Switch, Route, Redirect} from 'react-router-dom';
 import {connect } from 'react-redux';
 import './App.css';
 
@@ -77,7 +77,8 @@ class App extends React.Component {
   componentWillUnmount(){
     this.unsuscribeFromAuth();
   }
-
+  //en route voy a usar render en vez de component (en el signing) que es una invocacion a javascript que determina que componente debe
+  //retornarse en ese lugar.
   render(){
     return (
       <div>
@@ -85,7 +86,7 @@ class App extends React.Component {
         <Switch>
           <Route exact path='/' component={HomePage} />
           <Route path='/shop' component={ShopPage} />
-          <Route path='/signin' component={SignInAndSignUpPage} />
+          <Route exact path='/signin' render={()=>this.props.currentUser ? (<Redirect to='/'/>) : (<SignInAndSignUpPage/>)} />
         </Switch>
         
       </div>
@@ -93,10 +94,17 @@ class App extends React.Component {
   }
 }
 
+//esto lo hago porque necesito saber si el usuario esta conectado o no
+//para redireccionarlo desde el signin.
+const mapStateToProps = ({ user }) => ({
+    currentUser: user.currentUser
+});
+
 const mapDispatchToProps = dispatch => ({
   //inside de nuestro map dispach 
   //cuando usamos esto ya no vamos a necesitar el constructor
   setCurrentUser: user => dispatch(setCurrentUser(user))
 })
-//como no necesitamos ningun props , ponemos null como primer argumento, porque no necesitamos mantener ningun state de props
-export default connect(null, mapDispatchToProps)(App);
+//como no necesitamos ningun props , ponemos null como primer argumento, porque no necesitamos mantener ningun state de props.
+//ahora en vez del null que estaba antes como primer parametro, vamos a poner el mapDispatchToProps
+export default connect(mapStateToProps, mapDispatchToProps)(App);
