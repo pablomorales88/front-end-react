@@ -10,7 +10,8 @@ import { selectCartItemsCount } from '../../redux/cart/cart.selector'
 import { ReactComponent as ShoppingIcon } from '../../assets/shopping-bag.svg'
 
 import './cart-icon.styles.scss'
-import FormInput from '../form-input/form-input.component';
+
+
 
 //functional component
 //le voy a pasar el redux toggleCartHidden

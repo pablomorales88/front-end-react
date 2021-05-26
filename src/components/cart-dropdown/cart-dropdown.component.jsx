@@ -1,38 +1,40 @@
+
 import React from 'react';
-
 import { connect } from 'react-redux';
-
-import { createStructuredSelector} from 'reselect';
+import { createStructuredSelector } from 'reselect';
+import { withRouter } from 'react-router-dom';
 
 import CustomButton from '../custom-button/custom-button.component';
 import CartItem from '../cart-item/cart-item.component';
-import { selectCartItems } from '../../redux/cart/cart.selector'
+import { selectCartItems } from '../../redux/cart/cart.selector';
+import { toggleCartHidden } from '../../redux/cart/cart.actions.js';
 
 import './cart-dropdown.styles.scss';
 
-
-//tenemos que mostrar arriba del div el cartItems que representa el carrito de compras
-//ensima de nuestro cart items.. ponemos el cart item
-const CartDropDown = ({cartItems}) => (
-    <div className='cart-dropdown'>
-        <div className='cart-items'>
-            {
-                cartItems.map(cartItem => (<CartItem key={cartItem.id} item={cartItem} />
-            ))}
-        </div>
-        <CustomButton> GO TO CHECKOUT </CustomButton>
+const CartDropdown = ({ cartItems, history, dispatch }) => (
+  <div className='cart-dropdown'>
+    <div className='cart-items'>
+      {cartItems.length ? (
+        cartItems.map(cartItem => (
+          <CartItem key={cartItem.id} item={cartItem} />
+        ))
+      ) : (
+        <span className='empty-message'>Your cart is empty</span>
+      )}
     </div>
+    <CustomButton
+      onClick={() => {
+        history.push('/checkout');
+        dispatch(toggleCartHidden());
+      }}
+    >
+      GO TO CHECKOUT
+    </CustomButton>
+  </div>
 );
 
-//aca tengo que cambiar el cartItems por un selector.... 
-//voy a cambiar este codigo por...
-/*const mapStateToProps = ({cart: {cartItems}}) => ({
-    cartItems
-})*/
-
-//este otro..
 const mapStateToProps = createStructuredSelector({
-    cartItems: selectCartItems
-})
+  cartItems: selectCartItems
+});
 
-export default connect(mapStateToProps)(CartDropDown);
+export default withRouter(connect(mapStateToProps)(CartDropdown));
