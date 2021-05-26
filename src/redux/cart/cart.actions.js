@@ -10,3 +10,13 @@ export const addItem = item => ({
     type: CartActionTypes.ADD_ITEM,
     payload: item
 });
+
+//Como tengo que borrar un item... lo primero que hice fue
+//escribir un nuevo Types... llamado CLEAR_ITEM_FROM_CARA 
+//y aca escribir la funcion que borra el item... y un reducer es algo que puede
+//reducir o actualizar la lista de items.
+//vamos a nuestro cartReducer y pondremos un new case
+export const clearItemFromCart = item =>({
+    type: CartActionTypes.CLEAR_ITEM_FROM_CART,
+    payload: item
+})
