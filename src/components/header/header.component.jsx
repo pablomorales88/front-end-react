@@ -3,11 +3,16 @@ import {Link} from 'react-router-dom';
 
 import { connect } from 'react-redux';
 
+//esto me imagino que lo pongo porque voy a traer cosas de dos
+//selectors
+import { createStructuredSelector} from 'reselect'
+
 import {auth} from '../../firebase/firebase.utils';
 
 import CartIcon from '../cart-icon/cart-icon.component';
 import CartDropDown from '../cart-dropdown/cart-dropdown.component';
-
+import { selectCartHidden } from '../../redux/cart/cart.selector';
+import { selectCurrentUser} from '../../redux/user/user.selector';
 //this import below it's a special syntax in React for importing SVG.
 import {ReactComponent as Logo} from '../../assets/crown.svg';
 
@@ -50,8 +55,10 @@ const Header = ({currentUser, hidden}) => (
 //pasa el estado actual, el state es el root reducer, pasaremos el current user
 //{user:{currentUser}} es una forma de desectructurar un valor que esta
 //dentro de user por ejemplo y pasarelo a user
-const mapStateToProps = ({user:{currentUser}, cart: {hidden}}) => ({
-    currentUser,
-    hidden
-})
+
+//cuando usamos varios selector podemos usar createStructuredSelector
+const mapStateToProps = createStructuredSelector({
+    currentUser: selectCurrentUser,
+    hidden: selectCartHidden
+});
 export default connect(mapStateToProps)(Header);
