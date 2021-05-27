@@ -1,6 +1,6 @@
 
 import CartActionTypes from './cart.types';
-import { addItemToCart } from './cart.utils';
+import { addItemToCart, removeItemFromCart } from './cart.utils';
 
 //vamos a agregar en el cart reducer un init state
 const INITIAL_STATE = {
@@ -20,6 +20,11 @@ const cartReducer = ( state = INITIAL_STATE, action ) => {
                 ...state,
                 //action.CartActionTypes => tenemos que ir a cart action y escribir la accion
                 cartItems:addItemToCart(state.cartItems, action.payload)
+            }
+        case CartActionTypes.REMOVE_ITEM:
+            return{
+                ...state,
+                cartItems: removeItemFromCart(state.cartItems, action.payload)
             }
         //ahora solo tenemos que binder cheout-item.component con esto
         //Lo que hace con el filter es quedarse con todos los item con ID que son distintos

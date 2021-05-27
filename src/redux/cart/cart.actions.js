@@ -11,6 +11,10 @@ export const addItem = item => ({
     payload: item
 });
 
+export const removeItem = item => ({
+    type: CartActionTypes.REMOVE_ITEM,
+    payload: item
+});
 //Como tengo que borrar un item... lo primero que hice fue
 //escribir un nuevo Types... llamado CLEAR_ITEM_FROM_CARA 
 //y aca escribir la funcion que borra el item... y un reducer es algo que puede

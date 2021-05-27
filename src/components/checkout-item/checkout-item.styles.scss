@@ -21,9 +21,16 @@
     .price {
       width: 23%;
     }
-  
+    //con el padding left veo todo vertical,
+    //lo voy a poner flex para que esten las cosas una al lado del otro
     .quantity {
-      padding-left: 20px;
+      display: flex;
+      .arrow{
+        cursor: pointer;
+      }
+      //0 px de margen en el top and botom y 10 px de margen en el left and right
+      .value{ 
+        margin: 0 10px;}
     }
   
     .remove-button {
