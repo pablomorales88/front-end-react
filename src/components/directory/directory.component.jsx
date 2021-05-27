@@ -1,8 +1,12 @@
 import React from 'react';
-
-
+//este connect es para que podamos usar el reducer de las imagenes que creamos en la 
+//carpeta directory de redux, y dado que hicimos esto, 
+//no vamos a necesitar mas el constructor
+import { connect } from 'react-redux'
 import MenuItem from '../menu-item/menu-item.component';
 
+import { createStructuredSelector } from 'reselect';
+import { selectDirectorySections} from '../../redux/directory/directory.selector';
 //hay que asegurarse de poner el directory styles
 import './directory.styles.scss'
 
@@ -10,50 +14,14 @@ import './directory.styles.scss'
 //No como el componente menu-item que muestra title y shopnow
 // Aca necesitamos mantener el estado de los menu-items
 
-class Directory extends React.Component{
-    constructor(){
-        super();
-
-
-        this.state = {
-            sections: [
-                {
-                  title: 'hats',
-                  imageUrl: 'https://i.ibb.co/cvpntL1/hats.png',
-                  id: 1,
-                  linkUrl: 'shop/hats'
-                },
-                {
-                  title: 'jackets',
-                  imageUrl: 'https://i.ibb.co/px2tCc3/jackets.png',
-                  id: 2,
-                  linkUrl: 'shop/jackets'
-                },
-                {
-                  title: 'sneakers',
-                  imageUrl: 'https://i.ibb.co/0jqHpnp/sneakers.png',
-                  id: 3,
-                  linkUrl: 'shop/sneakers'
-                },
-                {
-                  title: 'womens',
-                  imageUrl: 'https://i.ibb.co/GCCdy8t/womens.png',
-                  size: 'large',
-                  id: 4,
-                  linkUrl: 'shop/womens'
-                },
-                {
-                  title: 'mens',
-                  imageUrl: 'https://i.ibb.co/R70vBrQ/men.png',
-                  size: 'large',
-                  id: 5,
-                  linkUrl: 'shop/mens'
-                }
-              ]
-        }
-    }
+//Antes habia un componente de clases pero como usamos redux, vamos a usar solo
+//un componente de funcion porque no necesitamos acceder al this.state y nos aseguramos de 
+//pasar com oparametro sections del reducer y borramos el this.state
+const Directory = ({sections}) => (
+    
     //dentro de render tenemos que renderizar lo de homepage
-    render(){
+    //ya no usamos mas el render ni el return porque no es una clase
+    //render(){
       //hacemos un map a traves de las secciones 'sections'
       //Map es una funcion que toma una entrada y la mape con otra cosa.. y usamos una funcion flecha que le va a pasar los titulos 
       //a cada menuitem   
@@ -61,14 +29,16 @@ class Directory extends React.Component{
 
       //los tres puntos en ...otherSectionProps es una forma de guardar todas las variables que estan en sections en una sola y despues pasarselas
       //todas juntas a menuItem
-      return( 
-        <div className='directory-menu'>              
-          {this.state.sections.map(({id, ...otherSectionProps}) =>(
-            <MenuItem key={id} {...otherSectionProps}/>  
-          ))}
-          </div>
-      );
-    }
-}
+    //  return( 
+  <div className='directory-menu'>              
+    {sections.map(({id, ...otherSectionProps}) =>(
+      <MenuItem key={id} {...otherSectionProps}/>  
+    ))}
+    </div>
+);
 
-export default Directory
+
+const mapStateToProps = createStructuredSelector({
+  sections: selectDirectorySections
+})
+export default connect(mapStateToProps)(Directory)

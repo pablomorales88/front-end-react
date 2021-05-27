@@ -14,7 +14,7 @@ import CartDropDown from '../cart-dropdown/cart-dropdown.component';
 import { selectCartHidden } from '../../redux/cart/cart.selector';
 import { selectCurrentUser} from '../../redux/user/user.selector';
 //this import below it's a special syntax in React for importing SVG.
-import {ReactComponent as Logo} from '../../assets/crown.svg';
+import {ReactComponent as Logo} from '../../assets/logo.svg';
 
 import './header.styles.scss';
 
